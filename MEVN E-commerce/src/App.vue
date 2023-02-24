@@ -1,25 +1,27 @@
 <template>
-
-  <body>
+  <body class="bg-gray-50">
     <nav>
       <NavBar />
     </nav>
     <main>
-<h1>HOME</h1>
+      
     </main>
-
-
   </body>
+
+  <footer>
+    <Footer />
+  </footer>
 </template>
 
 <script setup>
-import NavBar from './components/NavBar.vue';
+import NavBar from "./components/NavBar.vue";
+import Footer from "./components/Footer.vue";
 
 
 </script>
 
 <style scoped>
-body{
+body {
   width: 100%;
 }
 </style>

@@ -8,6 +8,11 @@ const router = createRouter ({
     { path: "/register", component: () => import("../views/Register.vue") },
     { path: "/login", component: () => import("../views/Login.vue") },
     { path: "/feed", component: () => import("../views/Feed.vue") },   
+    { path: "/cart", component: () => import("../views/Cart.vue") },   
+    { path: "/contact", component: () => import("../views/Contact.vue") },   
+    { path: "/checkout", component: () => import("../views/Checkout.vue") },   
+    { path: "/about", component: () => import("../views/About.vue") },   
+    { path: "/products", component: () => import("../views/Products.vue") },   
   ],
  });
  
