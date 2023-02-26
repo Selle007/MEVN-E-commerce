@@ -11,6 +11,9 @@ import 'bootstrap/dist/js/bootstrap.min.js';
 
 import { initializeApp } from "firebase/app";
 
+import 'firebase/firestore';
+
+
 const firebaseConfig = {
   apiKey: "AIzaSyAFX9hZskRHMhhMaf2GNiOYvP9Rvjo2MJM",
   authDomain: "ecommercevue-d5779.firebaseapp.com",

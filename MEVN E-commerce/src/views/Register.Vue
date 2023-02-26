@@ -94,9 +94,10 @@ import {useRouter} from "vue-router"
 const email = ref("");
 const password = ref("");
 const router = useRouter();
+
 const register  = () => {
     createUserWithEmailAndPassword(getAuth(), email.value, password.value)
-    .then((data) => {
+    .then((auth) => {
         console.log("Successfully registered!");
         console.log(auth.currentUser);
         router.push('/feed')

@@ -1,8 +1,7 @@
 <template>
   <body class="bg-gray-50">
-    <nav>
-      <NavBar />
-    </nav>
+    <NavBar />
+
     <main>
       
     </main>
