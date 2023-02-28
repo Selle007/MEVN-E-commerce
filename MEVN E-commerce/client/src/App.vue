@@ -1,16 +1,20 @@
 <template>
   <body class="bg-gray-50">
-    <component :is="navComponent" />
-
-    <main>
+    <div v-if="!isDashboard" >
+      <NavBar />
       
-    </main>
+      <Footer />
+    </div>
+    <div v-if="isDashboard" class="flex flex-row">
+      <SideBar />
+
+    </div>
+    
   </body>
 
   <footer>
     <Footer />
   </footer>
-  
 </template>
 
 <script>
@@ -28,13 +32,20 @@ export default {
     navComponent() {
       const routeMeta = this.$route.meta;
       if (routeMeta.showSidebar) {
-        return 'SideBar';
+        return "SideBar";
       } else if (routeMeta.showNavbar) {
-        return 'NavBar';
+        return "NavBar";
       } else {
         // Default to Navbar component if neither flag is set
-        return 'NavBar';
+        return "NavBar";
       }
+    },
+    isDashboard() {
+      var path = window.location.pathname.split("/")[1];
+      if (path == "dashboard") {
+        return true;
+      }
+      return false;
     },
   },
 };

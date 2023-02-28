@@ -34,39 +34,47 @@
                 Contact
               </a>
             </li>
-            <li>
-              <a class="text-gray-500 transition hover:text-gray-500/75" href="/cart">
-                Cart
-              </a>
-            </li>
           </ul>
         </nav>
 
-        <form class="mb-0 hidden lg:flex">
+        <form class="flex justify-center items-center 2-24">
+          <label
+            for="default-search"
+            class="mb-2 text-sm font-medium text-gray-900 sr-only "
+            >Search</label
+          >
           <div class="relative">
-            <input
-              class="h-100 rounded-lg border-gray-200 pr-10 text-sm placeholder-gray-300 focus:z-10"
-              placeholder="Search..."
-              type="text"
-            />
-
-            <button
-              type="submit"
-              class="absolute inset-y-0 right-0 rounded-r-lg p-2 text-gray-600"
+            <div
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none justify-center "
             >
-              <span class="sr-only">Submit Search</span>
               <svg
-                class="h-5 w-5"
-                fill="currentColor"
-                viewbox="0 0 20 20"
+                aria-hidden="true"
+                class="w-5 h-5 text-gray-500 "
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  clip-rule="evenodd"
-                  d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                  fill-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
                 ></path>
               </svg>
+            </div>
+            <input
+              type="search"
+              id="default-search"
+              class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 h-6 w-96"
+              placeholder="   Search..."
+              required
+            />
+            <button
+              type="submit"
+              class="text-white absolute right-2.5 bottom-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 "
+            >
+              Search
             </button>
           </div>
         </form>
@@ -88,9 +96,7 @@
               Login
             </router-link>
 
-            <LoggedIn v-if="isLoggedIn"/>
-    
-            
+            <LoggedIn v-if="isLoggedIn" />
           </div>
 
           <button
@@ -123,7 +129,7 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "@firebase/auth";
-import LoggedIn from "../components/LoggedIn.vue"
+import LoggedIn from "../components/LoggedIn.vue";
 import router from "../router";
 
 const isLoggedIn = ref(false);
@@ -145,8 +151,6 @@ const handleSignOut = () => {
     router.push("/");
   });
 };
-
-
 </script>
 
 <style scoped>

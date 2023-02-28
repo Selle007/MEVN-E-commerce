@@ -9,6 +9,7 @@ import 'popper.js/dist/popper.min.js';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'flowbite/dist/flowbite.js';
 import 'flowbite/dist/flowbite.min.js';
+import 'alpinejs/dist/cdn.min.js';
 
 
 import { initializeApp } from "firebase/app";
