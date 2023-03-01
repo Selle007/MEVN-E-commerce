@@ -22,7 +22,7 @@ db.mongoose
   });
   
   
-const categoryAPI = require('../server/controllers/category.controller')
+
 const app = express()
 app.use(bodyParser.json())
 app.use(
@@ -32,8 +32,11 @@ app.use(
 )
 app.use(cors())
 
+const categoryAPI = require('../server/controllers/category.controller')
+const productAPI = require('../server/controllers/product.controller')
 // API
 app.use('/api', categoryAPI)
+app.use('/api', productAPI)
 
 
 
