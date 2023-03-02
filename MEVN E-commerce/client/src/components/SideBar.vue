@@ -77,7 +77,7 @@
 
         <nav aria-label="Teams Nav" class="mt-2 flex flex-col px-4">
           <a
-            href="#"
+            href="/dashboard/product/list-products"
             class="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
           >
             <svg
