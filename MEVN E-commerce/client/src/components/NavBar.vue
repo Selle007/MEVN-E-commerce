@@ -18,9 +18,41 @@
             </li>
 
             <li>
-              <a class="text-gray-500 transition hover:text-gray-500/75" href="/feed">
-                Products
-              </a>
+              <Menu as="div" class="relative text-left">
+                <div>
+                  <MenuButton
+                    class="inline-flex justify-center text-gray-500 transition hover:text-gray-500/75"
+                  >
+                    Products
+                  </MenuButton>
+                </div>
+
+                <transition
+                  enter-active-class="transition ease-out duration-100"
+                  enter-from-class="transform opacity-0 scale-95"
+                  enter-to-class="transform opacity-100 scale-100"
+                  leave-active-class="transition ease-in duration-75"
+                  leave-from-class="transform opacity-100 scale-100"
+                  leave-to-class="transform opacity-0 scale-95"
+                >
+                  <MenuItems
+                    class="absolute z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  >
+                    <div class="py-1">
+                      <MenuItem  v-slot="{ active }" v-for="category in categories" :key="category._id">
+                        <a
+                        :href="`/category/${category._id}`"
+                          :class="[
+                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                            'block px-4 py-2 text-sm',
+                          ]"
+                          >{{category.name}}</a
+                        >
+                      </MenuItem>
+                    </div>
+                  </MenuItems>
+                </transition>
+              </Menu>
             </li>
 
             <li>
@@ -40,16 +72,16 @@
         <form class="flex justify-center items-center 2-24">
           <label
             for="default-search"
-            class="mb-2 text-sm font-medium text-gray-900 sr-only "
+            class="mb-2 text-sm font-medium text-gray-900 sr-only"
             >Search</label
           >
           <div class="relative">
             <div
-              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none justify-center "
+              class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none justify-center"
             >
               <svg
                 aria-hidden="true"
-                class="w-5 h-5 text-gray-500 "
+                class="w-5 h-5 text-gray-500"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -72,7 +104,7 @@
             />
             <button
               type="submit"
-              class="text-white absolute right-2.5 bottom-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 "
+              class="text-white absolute right-2.5 bottom-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2"
             >
               Search
             </button>
@@ -126,30 +158,49 @@
   <router-view />
 </template>
 
-<script setup>
+<script>
 import { onMounted, ref } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "@firebase/auth";
 import LoggedIn from "../components/LoggedIn.vue";
 import router from "../router";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
+import axios from "axios";
 
-const isLoggedIn = ref(false);
-let auth;
+export default {
+  components: {
+    Menu,
+    MenuButton,
+    MenuItem,
+    MenuItems,
+    LoggedIn,
+  },
+  setup() {
+    const isLoggedIn = ref(false);
+    const categories = ref([]);
 
-onMounted(() => {
-  auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      isLoggedIn.value = true;
-    } else {
-      isLoggedIn.value = false;
-    }
-  });
-});
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        isLoggedIn.value = true;
+      } else {
+        isLoggedIn.value = false;
+      }
+    });
 
-const handleSignOut = () => {
-  signOut(auth).then(() => {
-    router.push("/");
-  });
+    onMounted(() => {
+      axios.get("http://localhost:3000/api/categories").then((response) => {
+        categories.value = response.data;
+      });
+    });
+
+    const handleSignOut = () => {
+      signOut(auth).then(() => {
+        router.push("/");
+      });
+    };
+
+    return { isLoggedIn, categories, handleSignOut };
+  },
 };
 </script>
 

@@ -62,6 +62,7 @@ onMounted(() => {
   });
 });
 
+
 const handleSignOut = () => {
   signOut(auth).then(() => {
     router.push("/");

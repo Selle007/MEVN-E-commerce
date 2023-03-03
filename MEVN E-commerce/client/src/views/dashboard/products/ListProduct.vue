@@ -45,8 +45,14 @@
                 </th>
                 <td class="px-4 py-3">{{ product.description }}</td>
                 <td class="px-4 py-3">{{ product.price }}</td>
-                <td class="px-4 py-3">{{ product.image }}</td>
-                <td class="px-4 py-3">{{ product.isFeatured ? 'Yes' : 'No' }}</td>
+                <td class="px-4 py-3">
+                  <img
+                    :src="product.image"
+                    alt=""
+                    class="max-h-20 object-cover transition duration-500 group-hover:scale-105 sm:h-72"
+                  />
+                </td>
+                <td class="px-4 py-3">{{ product.isFeatured ? "Yes" : "No" }}</td>
                 <td class="px-4 py-3">{{ getCategoryName(product.category) }}</td>
 
                 <td class="px-4 py-3 flex flex-row w-">
@@ -126,8 +132,8 @@ export default {
       showModal: false,
     };
   },
-  components:{
-    Sidebar
+  components: {
+    Sidebar,
   },
   created() {
     let apiURL = "http://localhost:3000/api/products";
@@ -143,8 +149,7 @@ export default {
       });
   },
   mounted() {
-    
-    axios.get('http://localhost:3000/api/categories').then(response => {
+    axios.get("http://localhost:3000/api/categories").then((response) => {
       this.categories = response.data;
     });
   },
@@ -168,8 +173,8 @@ export default {
       this.$router.push(`/dashboard/product/edit-product/${id}`);
     },
     getCategoryName(categoryId) {
-      const category = this.categories.find(c => c._id === categoryId);
-      return category ? category.name : '';
+      const category = this.categories.find((c) => c._id === categoryId);
+      return category ? category.name : "";
     },
   },
 };

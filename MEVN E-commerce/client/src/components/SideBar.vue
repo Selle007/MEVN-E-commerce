@@ -308,35 +308,39 @@
 <router-view />
 </template>
 
-<script setup>
+
+<script>
 import { onMounted, ref } from "vue";
 import { getAuth, onAuthStateChanged, signOut } from "@firebase/auth";
+
 import router from "../router";
 
-const isVisible = ref(false);
+import axios from "axios";
 
-const toggleVisibility = () => {
-  isVisible.value = !isVisible.value;
-};
+export default {
+  components: {
 
-const isLoggedIn = ref(false);
-let auth;
+  },
+  setup() {
+    const isLoggedIn = ref(false);
+    const categories = ref([]);
 
-onMounted(() => {
-  auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      isLoggedIn.value = true;
-    } else {
-      isLoggedIn.value = false;
-    }
-  });
-});
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        isLoggedIn.value = true;
+      } else {
+        isLoggedIn.value = false;
+      }
+    });
+    const handleSignOut = () => {
+      signOut(auth).then(() => {
+        router.push("/");
+      });
+    };
 
-const handleSignOut = () => {
-  signOut(auth).then(() => {
-    router.push("/");
-  });
+    return { isLoggedIn, handleSignOut };
+  },
 };
 </script>
 
