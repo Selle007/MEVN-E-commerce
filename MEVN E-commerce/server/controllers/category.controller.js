@@ -1,10 +1,10 @@
 const express = require('express');
-const categoryRoute = express.Router();
+const router = express.Router();
 
 //model
 let CategoryModel = require('../models/category.model')
 
-categoryRoute.route('/create-category').post((req, res, next) => {
+router.route('/create-category').post((req, res, next) => {
   CategoryModel.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -14,7 +14,7 @@ categoryRoute.route('/create-category').post((req, res, next) => {
   })
 })
 
-categoryRoute.route('/categories').get((req, res, next) => {
+router.route('/categories').get((req, res, next) => {
   CategoryModel.find((error, data) => {
     if (error) {
       return next(error)
@@ -24,7 +24,7 @@ categoryRoute.route('/categories').get((req, res, next) => {
   })
 })
 
-categoryRoute.route('/edit-category/:id').get((req, res, next) => {
+router.route('/edit-category/:id').get((req, res, next) => {
   CategoryModel.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)
@@ -35,7 +35,7 @@ categoryRoute.route('/edit-category/:id').get((req, res, next) => {
 })
 
 // Update
-categoryRoute.route('/update-category/:id').put((req, res, next) => {
+router.route('/update-category/:id').put((req, res, next) => {
   CategoryModel.findByIdAndUpdate(
     req.params.id,
     {
@@ -53,7 +53,7 @@ categoryRoute.route('/update-category/:id').put((req, res, next) => {
 })
 
 // Delete
-categoryRoute.route('/delete-category/:id').delete((req, res, next) => {
+router.route('/delete-category/:id').delete((req, res, next) => {
   CategoryModel.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error)
@@ -65,4 +65,4 @@ categoryRoute.route('/delete-category/:id').delete((req, res, next) => {
   })
 })
 
-module.exports = categoryRoute
+module.exports = router

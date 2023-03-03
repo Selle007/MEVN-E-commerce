@@ -29,6 +29,7 @@
                 <th scope="col" class="px-4 py-3">Product Name</th>
                 <th scope="col" class="px-4 py-3">Description</th>
                 <th scope="col" class="px-4 py-3">Price</th>
+                <th scope="col" class="px-4 py-3">Stock</th>
                 <th scope="col" class="px-4 py-3">Image</th>
                 <th scope="col" class="px-4 py-3">Is Featured</th>
                 <th scope="col" class="px-4 py-3">Category</th>
@@ -45,6 +46,7 @@
                 </th>
                 <td class="px-4 py-3">{{ product.description }}</td>
                 <td class="px-4 py-3">{{ product.price }}</td>
+                <td class="px-4 py-3">{{ product.stock }}</td>
                 <td class="px-4 py-3">
                   <img
                     :src="product.image"

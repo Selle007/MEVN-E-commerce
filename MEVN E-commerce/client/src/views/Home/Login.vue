@@ -93,8 +93,10 @@ const router = useRouter();
 const register = () => {
   signInWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((data) => {
+      
       console.log("Successfully logged in!");
-      router.push("/feed");
+      localStorage.setItem("userId", data.user.uid);
+      router.push("/");
     })
     .catch((error) => {
       console.log(error.code);

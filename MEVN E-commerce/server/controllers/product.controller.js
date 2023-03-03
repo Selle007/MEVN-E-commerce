@@ -1,10 +1,10 @@
 const express = require('express');
-const productRoute = express.Router();
+const router = express.Router();
 
 //model
 let ProductModel = require('../models/product.model')
 
-productRoute.route('/create-product').post((req, res, next) => {
+router.route('/create-product').post((req, res, next) => {
   ProductModel.create(req.body, (error, data) => {
     if (error) {
       return next(error)
@@ -14,7 +14,7 @@ productRoute.route('/create-product').post((req, res, next) => {
   })
 })
 
-productRoute.route('/products').get((req, res, next) => {
+router.route('/products').get((req, res, next) => {
   ProductModel.find((error, data) => {
     if (error) {
       return next(error)
@@ -24,7 +24,18 @@ productRoute.route('/products').get((req, res, next) => {
   })
 })
 
-productRoute.route('/edit-product/:id').get((req, res, next) => {
+router.route('/products/:id').get((req, res, next) => {
+  ProductModel.findById(req.params.id, (error, data) => {
+    if (error) {
+      return next(error)
+    } else {
+      res.json(data)
+    }
+  })
+})
+
+
+router.route('/edit-product/:id').get((req, res, next) => {
   ProductModel.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)
@@ -35,7 +46,7 @@ productRoute.route('/edit-product/:id').get((req, res, next) => {
 })
 
 // Update
-productRoute.route('/update-product/:id').put((req, res, next) => {
+router.route('/update-product/:id').put((req, res, next) => {
   ProductModel.findByIdAndUpdate(
     req.params.id,
     {
@@ -53,7 +64,7 @@ productRoute.route('/update-product/:id').put((req, res, next) => {
 })
 
 // Delete
-productRoute.route('/delete-product/:id').delete((req, res, next) => {
+router.route('/delete-product/:id').delete((req, res, next) => {
   ProductModel.findByIdAndRemove(req.params.id, (error, data) => {
     if (error) {
       return next(error)
@@ -65,4 +76,4 @@ productRoute.route('/delete-product/:id').delete((req, res, next) => {
   })
 })
 
-module.exports = productRoute
+module.exports = router

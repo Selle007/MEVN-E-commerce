@@ -30,19 +30,26 @@ app.use(
     extended: false,
   }),
 )
+
 app.use(cors())
 
 const categoryAPI = require('../server/controllers/category.controller')
 const productAPI = require('../server/controllers/product.controller')
+const cartAPI = require('../server/controllers/cart.controller')
+
 // API
 app.use('/api', categoryAPI)
+app.use('/api', cartAPI)
 app.use('/api', productAPI)
 
 
 
 
+
+
 var corsOptions ={
-    origin: "http://127.0.0.1:5173/"
+    origin: "http://127.0.0.1:5173/",
+    origin: "http://127.0.0.1:5173"
 };
 app.use(cors(corsOptions));
 
@@ -51,6 +58,8 @@ app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
 
 app.get('/', (req, res) => {
     res.send('Hello World')
