@@ -23,6 +23,8 @@ router.route('/cart/:userId').get((req, res) => {
       res.status(500).send(error);
     });
 });
+
+
 // Add item to cart for a user
 router.route('/cart/:userId/').post((req, res) => {
   console.log(req.body);
