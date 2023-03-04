@@ -72,19 +72,40 @@ router.route('/cart/:userId/').post((req, res) => {
 
 
 // Delete item from cart for a user
-router.route('/cart/:userId/:productId').delete((req, res) => {
-  const productId = req.params.productId;
+router.route('/cart/:userId/').delete((req, res) => {
+  console.log(req.body);
+  const productId = req.body.productId;
   const userId = req.params.userId;
 
-  CartModel.findOneAndUpdate({ userId }, { $pull: { items: productId } })
-    .then(() => {
-      console.log("Item deleted from cart successfully!");
-      res.status(200).send("Item deleted from cart successfully!");
-    })
-    .catch((error) => {
-      console.error("Error deleting item from cart: ", error);
-      res.status(500).send(error);
-    });
+  CartModel.findOne({ userId }, (err, cart) => {
+    if (err) {
+      console.error("Error finding cart: ", err);
+      res.status(500).send(err);
+    } else {
+      if (!cart) {
+        console.error("Cart not found for user ", userId);
+        res.status(404).send("Cart not found for user " + userId);
+      } else {
+        
+          CartModel.findOneAndUpdate(
+            { userId },
+            { $pull: { items: {productId } } },
+            (err, updatedCart) => {
+              if (err) {
+                console.error("Error deleting item from cart: ", err);
+                res.status(500).send(err);
+              } else {
+                console.log("Item deleted from cart successfully!");
+                res.status(200).send("Item deleted from cart successfully!");
+              }
+            }
+          );
+        }
+      }
+    }
+  );
 });
+
+
 
 module.exports = router;

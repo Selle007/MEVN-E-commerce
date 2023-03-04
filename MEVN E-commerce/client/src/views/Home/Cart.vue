@@ -11,9 +11,7 @@
         <div>
           <ul class="space-y-4">
             <li class="flex items-center gap-4" v-for="item in cartItems" :key="item._id">
-              <img
-                :src=getProductImage(item.productId)
-                alt="" class="h-16 w-16 rounded object-cover" />
+              <img :src=getProductImage(item.productId) alt="" class="h-16 w-16 rounded object-cover" />
 
               <div>
                 <h3 class="text-sm text-gray-900">{{ getProductName(item.productId) }}</h3>
@@ -35,7 +33,7 @@
                     class="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none" />
                 </form>
 
-                <button class="text-gray-600 transition hover:text-red-600">
+                <button class="text-gray-600 transition hover:text-red-600" @click="removeItemFromCart(item.productId)">
                   <span class="sr-only">Remove item</span>
 
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -107,7 +105,7 @@ export default {
   data() {
     return {
       cartItems: [],
-      products:[]
+      products: []
     };
   },
   created() {
@@ -121,8 +119,8 @@ export default {
       .catch((error) => {
         console.error('Error getting cart items: ', error);
       });
-      
-      
+
+
   },
   mounted() {
     axios.get("http://localhost:3000/api/products").then((response) => {
@@ -142,6 +140,27 @@ export default {
       const product = this.products.find((p) => p._id === productId);
       return product ? product.description : "";
     },
+    removeItemFromCart(productId) {
+      const userId = localStorage.getItem('userId');
+
+      axios.delete(`http://localhost:3000/api/cart/${userId}`, { data: { productId: productId } })
+
+        .then(() => {
+          console.log('Item deleted from cart successfully!');
+        })
+        .catch((error) => {
+          console.error('Error deleting item from cart: ', error);
+        });
+    },
+    async getCartItems() {
+      const userId = localStorage.getItem('userId');
+      try {
+        const response = await axios.get(`http://localhost:3000/api/cart/${userId}`);
+        this.cartItems = response.data.items;
+      } catch (error) {
+        console.error('Error getting cart items:', error);
+      }
+    }
   }
 };
 </script>
