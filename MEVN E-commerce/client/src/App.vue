@@ -3,7 +3,7 @@
     <div v-if="!isDashboard" >
       <NavBar />
       
-      <Footer />
+
     </div>
     <div v-if="isDashboard" class="flex flex-row">
       <SideBar />
@@ -12,9 +12,7 @@
     
   </body>
 
-  <footer>
-    <Footer />
-  </footer>
+
 </template>
 
 <script>

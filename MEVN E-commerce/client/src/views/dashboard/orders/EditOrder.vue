@@ -24,7 +24,8 @@
           </div>
           <dl class="mt-6">
             <dt class="mb-2 font-semibold leading-none text-black">Shipping address:</dt>
-            <dd class="mb-4 font-semibold text-gray-900 sm:mb-5 ">Name: {{ order.shippingDetails.name }}<br>
+            <dd class="mb-4 font-semibold text-gray-900 sm:mb-5 ">
+              Name: {{ order.shippingDetails.name }}<br>
               Surname: {{ order.shippingDetails.surname }}<br>
               Country: {{ order.shippingDetails.country }}<br>
               City: {{ order.shippingDetails.city }}<br>
@@ -61,6 +62,7 @@
                 </div>
               </dd>
             </div>
+
           </dl>
         </div>
         <button

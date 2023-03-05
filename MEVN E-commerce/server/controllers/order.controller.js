@@ -39,7 +39,7 @@ router.post('/orders', async (req, res) => {
         zipCode
       },
       items,
-      status: 'processing'
+      status: 'Processing'
     });
   
     await order.save();
@@ -88,18 +88,17 @@ router.route('/orders/:id').put(async (req, res) => {
     res.status(200).json({ message: 'Order updated successfully', order });
   });
   
-
-// Delete
-router.route('/delete-category/:id').delete((req, res, next) => {
-  CategoryModel.findByIdAndRemove(req.params.id, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.status(200).json({
-        msg: data,
+  router.route('/orders/user/:userId').get((req, res) => { 
+    const userId = req.params.userId;
+    Order.find({ userId: userId })
+      .then((orders) => {
+        res.json(orders);
       })
-    }
-  })
-})
+      .catch((err) => {
+        console.error(err);
+        res.status(500).json({ error: 'Internal server error' });
+      });
+  });
+  
 
 module.exports = router

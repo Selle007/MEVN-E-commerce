@@ -25,16 +25,19 @@
                 </th>
                 <td class="text-left">{{ order.shippingDetails.name }} {{ order.shippingDetails.surname }},<br>
                   {{ order.shippingDetails.country }}<br>
-                  {{ order.shippingDetails.city }}, 
-                  {{ order.shippingDetails.address}}, 
-                  {{ order.shippingDetails.zipCode }}</td>
-
-                <td class="text-left">{{ order.created_at }}</td>
+                  {{ order.shippingDetails.city }},
+                  {{ order.shippingDetails.address }},
+                  {{ order.shippingDetails.zipCode }}
+                </td>
+                <td class="text-left">{{ formatDate(order.created_at) }}</td>
                 <td class="text-left">{{ order.total }}&euro;</td>
                 <td class="text-left">
-                  <span v-if="order.status === 'Processing'" class="py-2 bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300">Processing</span>
-                  <span v-if="order.status === 'Shipped'" class="py-2 bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">Shipped</span>
-                  <span v-if="order.status === 'Completed'" class="py-2 bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Completed</span>
+                  <span v-if="order.status === 'Processing'"
+                    class="py-2 bg-indigo-100 text-indigo-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300">Processing</span>
+                  <span v-if="order.status === 'Shipped'"
+                    class="py-2 bg-yellow-100 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-yellow-900 dark:text-yellow-300">Shipped</span>
+                  <span v-if="order.status === 'Completed'"
+                    class="py-2 bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">Completed</span>
                 </td>
 
 
@@ -101,6 +104,10 @@ export default {
     editOrder: function (id) {
       this.$router.push(`/dashboard/order/edit-order/${id}`);
     },
+    formatDate(date) {
+            // format the date string to display in a more user-friendly way
+            return new Date(date).toLocaleDateString()
+        },
   },
 };
 </script>

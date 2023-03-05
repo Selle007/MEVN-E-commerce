@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="bg-gray-50 p-3 sm:p-5 w-screen">
     <div class="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 sm:py-12 lg:px-8">
       <div class="mx-auto max-w-3xl">
         <header class="text-center">
@@ -8,8 +8,8 @@
         <!-- Cart items -->
         <div>
           <ul class="space-y-4">
-
-            <li class="flex items-center gap-4 border rounded-lg px-4 shadow-sm" v-for="item in cartItems" :key="item._id">
+            <li class="flex items-center gap-4 border rounded-lg px-4 shadow-sm" v-for="item in cartItems"
+              :key="item._id">
               <img :src=getProductImage(item.productId) alt="" class="h-20 w-20 rounded object-cover" />
               <div>
                 <h3 class="text-,d text-gray-900">{{ getProductName(item.productId) }}</h3>
@@ -20,8 +20,7 @@
                   </div>
                   <div>
                     <dt class="inline text-sm">Price:</dt>
-                    <dd class="inline text-sm">{{ calculatePrice(item) }}&euro;</dd>
-
+                    <dd class="inline text-sm">{{ calculatePrice(item, item.productId) }}&euro;</dd>
                   </div>
                 </dl>
               </div>
@@ -91,22 +90,23 @@ export default {
     });
   },
   computed: {
-  cartTotal() {
-    return this.cartItems.reduce((total, item) => {
-      const product = this.products.find((p) => p._id === item.productId);
-      if (product) {
-        return total + (product.price * item.quantity);
-      } else {
-        return total;
-      }
-    }, 0);
-  }
-},
+    cartTotal() {
+      return this.cartItems.reduce((total, item) => {
+        const product = this.products.find((p) => p._id === item.productId);
+        if (product) {
+          return total + (product.price * item.quantity);
+        } else {
+          return total;
+        }
+      }, 0);
+    }
+  },
 
   methods: {
-    calculatePrice(item) {
-      const product = this.products.find((p) => p._id === item.productId);
-      return product.price * item.quantity;
+
+    calculatePrice(item, productId) {
+      const product = this.products.find((p) => p._id === productId);
+      return product ? product.price * item.quantity : "";
     },
     getProductImage(productId) {
       const product = this.products.find((p) => p._id === productId);
@@ -124,6 +124,7 @@ export default {
       const product = this.products.find((p) => p._id === productId);
       return product ? product.description : "";
     },
+    
     removeItemFromCart(productId) {
       const userId = localStorage.getItem('userId');
       axios.delete(`http://localhost:3000/api/cart/${userId}`, { data: { productId: productId } })
