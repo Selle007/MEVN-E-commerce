@@ -8,6 +8,7 @@
         <!-- Cart items -->
         <div>
           <ul class="space-y-4">
+
             <li class="flex items-center gap-4 border rounded-lg px-4 shadow-sm" v-for="item in cartItems" :key="item._id">
               <img :src=getProductImage(item.productId) alt="" class="h-20 w-20 rounded object-cover" />
               <div>
@@ -20,6 +21,7 @@
                   <div>
                     <dt class="inline text-sm">Price:</dt>
                     <dd class="inline text-sm">{{ calculatePrice(item) }}&euro;</dd>
+
                   </div>
                 </dl>
               </div>

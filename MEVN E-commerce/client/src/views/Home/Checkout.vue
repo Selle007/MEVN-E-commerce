@@ -1,4 +1,5 @@
 <template>
+
   <section>
     <h1 class="sr-only">Checkout</h1>
 
@@ -247,3 +248,4 @@ export default {
   }
 };
 </script>
+
