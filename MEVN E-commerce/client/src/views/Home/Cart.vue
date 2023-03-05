@@ -5,37 +5,32 @@
         <header class="text-center">
           <h1 class="text-xl font-bold text-gray-900 sm:text-3xl">Your Cart</h1>
         </header>
-
-
         <!-- Cart items -->
         <div>
           <ul class="space-y-4">
             <li class="flex items-center gap-4" v-for="item in cartItems" :key="item._id">
               <img :src=getProductImage(item.productId) alt="" class="h-16 w-16 rounded object-cover" />
-
               <div>
                 <h3 class="text-sm text-gray-900">{{ getProductName(item.productId) }}</h3>
-
                 <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
                   <div>
                     <dt class="inline">Description:</dt>
                     <dd class="inline">{{ getProductDesc(item.productId) }}</dd>
                   </div>
-
+                  <div>
+                    <dt class="inline">Price:</dt>
+                    <dd class="inline">{{ calculatePrice(item) }}&euro;</dd>
+                  </div>
                 </dl>
               </div>
-
               <div class="flex flex-1 items-center justify-end gap-2">
                 <form>
-                  <label for="Line1Qty" class="sr-only"> Quantity </label>
-
-                  <input type="number" min="1" value="1" id="Line1Qty"
-                    class="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none" />
+                  <label for="Line1Qty" class="sr-only"> {{ item.quantity }} </label>
+                  <input type="number" min="1" :value="item.quantity" id="Line1Qty"
+                    class="h-8 w-12 rounded border-gray-200 bg-gray-50 p-0 text-center text-xs text-gray-600 [-moz-appearance:_textfield] focus:outline-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none">
                 </form>
-
                 <button class="text-gray-600 transition hover:text-red-600" @click="removeItemFromCart(item.productId)">
                   <span class="sr-only">Remove item</span>
-
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="h-4 w-4">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -45,44 +40,14 @@
               </div>
             </li>
           </ul>
-
           <div class="mt-8 flex justify-end border-t border-gray-100 pt-8">
             <div class="w-screen max-w-lg space-y-4">
               <dl class="space-y-0.5 text-sm text-gray-700">
-                <div class="flex justify-between">
-                  <dt>Subtotal</dt>
-                  <dd>£250</dd>
-                </div>
-
-                <div class="flex justify-between">
-                  <dt>VAT</dt>
-                  <dd>£25</dd>
-                </div>
-
-                <div class="flex justify-between">
-                  <dt>Discount</dt>
-                  <dd>-£20</dd>
-                </div>
-
                 <div class="flex justify-between !text-base font-medium">
                   <dt>Total</dt>
-                  <dd>£200</dd>
+                  <dd>{{ cartTotal }}&euro;</dd>
                 </div>
               </dl>
-
-              <div class="flex justify-end">
-                <span
-                  class="inline-flex items-center justify-center rounded-full bg-indigo-100 px-2.5 py-0.5 text-indigo-700">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="-ml-1 mr-1.5 h-4 w-4">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                      d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z" />
-                  </svg>
-
-                  <p class="whitespace-nowrap text-xs">2 Discounts Applied</p>
-                </span>
-              </div>
-
               <div class="flex justify-end">
                 <a href="/checkout"
                   class="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600">
@@ -94,7 +59,6 @@
         </div>
       </div>
     </div>
-
   </section>
 </template>
 
@@ -110,7 +74,6 @@ export default {
   },
   created() {
     const userId = localStorage.getItem('userId');
-
     axios.get(`http://localhost:3000/api/cart/${userId}`)
       .then(response => {
         console.log(response.data);
@@ -119,15 +82,30 @@ export default {
       .catch((error) => {
         console.error('Error getting cart items: ', error);
       });
-
-
   },
   mounted() {
     axios.get("http://localhost:3000/api/products").then((response) => {
       this.products = response.data;
     });
   },
+  computed: {
+  cartTotal() {
+    return this.cartItems.reduce((total, item) => {
+      const product = this.products.find((p) => p._id === item.productId);
+      if (product) {
+        return total + (product.price * item.quantity);
+      } else {
+        return total;
+      }
+    }, 0);
+  }
+},
+
   methods: {
+    calculatePrice(item) {
+      const product = this.products.find((p) => p._id === item.productId);
+      return product.price * item.quantity;
+    },
     getProductImage(productId) {
       const product = this.products.find((p) => p._id === productId);
       return product ? product.image : "";
@@ -136,15 +114,17 @@ export default {
       const product = this.products.find((p) => p._id === productId);
       return product ? product.name : "";
     },
+    getProductQuanitity(productId) {
+      const product = this.products.find((p) => p._id === productId);
+      return product ? product.quantity : "";
+    },
     getProductDesc(productId) {
       const product = this.products.find((p) => p._id === productId);
       return product ? product.description : "";
     },
     removeItemFromCart(productId) {
       const userId = localStorage.getItem('userId');
-
       axios.delete(`http://localhost:3000/api/cart/${userId}`, { data: { productId: productId } })
-
         .then(() => {
           console.log('Item deleted from cart successfully!');
         })
@@ -164,8 +144,3 @@ export default {
   }
 };
 </script>
-
-
-
-
-

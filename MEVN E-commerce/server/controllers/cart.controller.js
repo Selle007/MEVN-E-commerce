@@ -24,49 +24,72 @@ router.route('/cart/:userId').get((req, res) => {
     });
 });
 
-
 // Add item to cart for a user
-router.route('/cart/:userId/').post((req, res) => {
-  console.log(req.body);
-  const productId = req.body.productId;
+router.route('/cart/:userId').post((req, res) => {
   const userId = req.params.userId;
+  const productId = req.body.productId;
+  const quantity = req.body.quantity || 1;
 
   CartModel.findOne({ userId }, (err, cart) => {
     if (err) {
-      console.error("Error finding cart: ", err);
+      console.error('Error finding cart for user: ', err);
       res.status(500).send(err);
-    } else if (cart) {
-      // If the cart already exists for the user, add the item to the items array
-      const item = { productId: productId, quantity: 1 };
-      cart.items.push(item);
-      cart.save((err, updatedCart) => {
-        if (err) {
-          console.error("Error updating cart: ", err);
-          res.status(500).send(err);
-        } else {
-          console.log("Item added to cart successfully!");
-          res.status(200).send("Item added to cart successfully!");
-        }
-      });
     } else {
-      // If the cart doesn't exist for the user, create a new cart document
-      const newCart = new CartModel({
-        userId: userId,
-        items: [{ productId: productId, quantity: 1 }]
-      });
-      newCart.save((err, savedCart) => {
-        if (err) {
-          console.error("Error creating cart: ", err);
-          res.status(500).send(err);
+      if (cart) {
+        const item = cart.items.find((item) => String(item.productId) === String(productId));
+        if (item) {
+          item.quantity++;
         } else {
-          console.log("Cart created successfully!");
-          res.status(200).send("Cart created successfully!");
+          cart.items.push({ productId: productId, quantity: 1 });
         }
-      });
+
+
+        cart.save((err) => {
+          if (err) {
+            console.error('Error adding item to cart: ', err);
+            res.status(500).send(err);
+          } else {
+            console.log('Item added to cart successfully!');
+            res.status(200).send('Item added to cart successfully!');
+          }
+        });
+      } else {
+        // User doesn't have a cart yet, create a new cart with the item
+        const newCart = new CartModel({
+          userId,
+          items: [{ productId, quantity }]
+        });
+
+        newCart.save((err) => {
+          if (err) {
+            console.error('Error adding item to cart: ', err);
+            res.status(500).send(err);
+          } else {
+            console.log('Item added to cart successfully!');
+            res.status(200).send('Item added to cart successfully!');
+          }
+        });
+      }
     }
   });
 });
 
+
+
+router.put('/cart/:userId', (req, res) => {
+  const userId = req.params.userId;
+  const updatedCart = req.body;
+
+  CartModel.findOneAndUpdate({ userId }, updatedCart, { new: true, upsert: true })
+    .then((cart) => {
+      console.log('Cart updated successfully!', cart);
+      res.status(200).send(cart);
+    })
+    .catch((error) => {
+      console.error('Error updating cart: ', error);
+      res.status(500).send(error);
+    });
+});
 
 
 
@@ -86,23 +109,23 @@ router.route('/cart/:userId/').delete((req, res) => {
         console.error("Cart not found for user ", userId);
         res.status(404).send("Cart not found for user " + userId);
       } else {
-        
-          CartModel.findOneAndUpdate(
-            { userId },
-            { $pull: { items: {productId } } },
-            (err, updatedCart) => {
-              if (err) {
-                console.error("Error deleting item from cart: ", err);
-                res.status(500).send(err);
-              } else {
-                console.log("Item deleted from cart successfully!");
-                res.status(200).send("Item deleted from cart successfully!");
-              }
+
+        CartModel.findOneAndUpdate(
+          { userId },
+          { $pull: { items: { productId } } },
+          (err, updatedCart) => {
+            if (err) {
+              console.error("Error deleting item from cart: ", err);
+              res.status(500).send(err);
+            } else {
+              console.log("Item deleted from cart successfully!");
+              res.status(200).send("Item deleted from cart successfully!");
             }
-          );
-        }
+          }
+        );
       }
     }
+  }
   );
 });
 
