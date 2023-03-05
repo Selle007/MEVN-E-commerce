@@ -8,18 +8,20 @@
         <!-- Cart items -->
         <div>
           <ul class="space-y-4">
-            <li class="flex items-center gap-4" v-for="item in cartItems" :key="item._id">
-              <img :src=getProductImage(item.productId) alt="" class="h-16 w-16 rounded object-cover" />
+
+            <li class="flex items-center gap-4 border rounded-lg px-4 shadow-sm" v-for="item in cartItems" :key="item._id">
+              <img :src=getProductImage(item.productId) alt="" class="h-20 w-20 rounded object-cover" />
               <div>
-                <h3 class="text-sm text-gray-900">{{ getProductName(item.productId) }}</h3>
+                <h3 class="text-,d text-gray-900">{{ getProductName(item.productId) }}</h3>
                 <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
                   <div>
-                    <dt class="inline">Description:</dt>
-                    <dd class="inline">{{ getProductDesc(item.productId) }}</dd>
+                    <dt class="inline text-sm">Description:</dt>
+                    <dd class="inline text-sm">{{ getProductDesc(item.productId) }}</dd>
                   </div>
                   <div>
-                    <dt class="inline">Price:</dt>
-                    <dd class="inline">{{ calculatePrice(item) }}&euro;</dd>
+                    <dt class="inline text-sm">Price:</dt>
+                    <dd class="inline text-sm">{{ calculatePrice(item) }}&euro;</dd>
+
                   </div>
                 </dl>
               </div>

@@ -24,6 +24,12 @@ const router = createRouter ({
     { path: "/dashboard/product/list-products", component: () => import("../views/dashboard/products/ListProduct.vue")},   
     { path: "/dashboard/product/create-product", component: () => import("../views/dashboard/products/CreateProduct.vue")},   
     { path: "/dashboard/product/edit-product/:id", component: () => import("../views/dashboard/products/EditProduct.vue") },   
+
+    //ORDER CRUD
+    { path: "/dashboard/order/list-orders", component: () => import("../views/dashboard/orders/ListOrder.vue")},   
+    { path: "/dashboard/order/create-order", component: () => import("../views/dashboard/orders/CreateOrder.vue")},   
+    { path: "/dashboard/order/edit-order/:id", component: () => import("../views/dashboard/orders/EditOrder.vue") },   
+
   ],
  });
  

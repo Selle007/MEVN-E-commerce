@@ -123,7 +123,8 @@
       </details>
 
       <a
-        href="#"
+        href="/dashboard/order/list-orders"
+
         class="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
       >
         <svg
@@ -141,7 +142,8 @@
           />
         </svg>
 
-        <span class="text-sm font-medium"> Billing </span>
+        <span class="text-sm font-medium"> Orders </span>
+
       </a>
 
       <a
