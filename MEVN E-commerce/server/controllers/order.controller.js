@@ -7,14 +7,14 @@ const Cart = require('../models/cart.model');
 
 // POST /api/orders
 // Create a new order
-router.post('/orders', async (req, res) => {
+router.post('/orders/:userId', async (req, res) => {
     const cart = await Cart.findOne({}).populate('items.productId');
   
     if (!cart) {
       return res.status(400).json({ message: 'Cart not found' });
     }
   
-    const userId = cart.userId;
+    const userId = req.params.userId;
     console.log(req.body)
     const { name, surname, city, address, country, phone, email, zipCode } = req.body;
   

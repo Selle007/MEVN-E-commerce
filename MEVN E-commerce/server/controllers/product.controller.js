@@ -34,6 +34,25 @@ router.route('/products/:id').get((req, res, next) => {
   })
 })
 
+async function getProducts() {
+  const products = await ProductModel.find();
+  return products;
+}
+
+router.get('/category/:id/products', async (req, res) => {
+  console.log(req.params)
+  const categoryId = req.params.id;
+  try {
+    const products = await ProductModel.find({ category: categoryId });
+    res.json(products);
+    console.log(products)
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+    console.log('test')
+  }
+});
+
+
 
 router.route('/edit-product/:id').get((req, res, next) => {
   ProductModel.findById(req.params.id, (error, data) => {
