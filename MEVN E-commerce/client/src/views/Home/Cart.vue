@@ -44,14 +44,14 @@
           <div class="mt-8 flex justify-end border-t border-gray-100 pt-8">
             <div class="w-screen max-w-lg space-y-4">
               <dl class="space-y-0.5 text-sm text-gray-700">
-                <div class="flex justify-between !text-base font-medium">
-                  <dt>Total</dt>
-                  <dd>{{ cartTotal }}&euro;</dd>
+                <div class="flex justify-end !text-base font-medium">
+                  <dt class="text-2xl">Total:</dt>
+                  <dd class="ml-5 text-2xl">{{ cartTotal }}&euro;</dd>
                 </div>
               </dl>
               <div class="flex justify-end">
                 <a href="/checkout"
-                  class="block rounded bg-gray-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-gray-600">
+                  class="block rounded bg-emerald-700 px-5 py-3 text-sm text-gray-100 transition hover:bg-emerald-800 text-white">
                   Checkout
                 </a>
               </div>
@@ -147,3 +147,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+* {
+  text-decoration: none;
+}
+</style>

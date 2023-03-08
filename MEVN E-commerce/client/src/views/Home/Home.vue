@@ -1,8 +1,7 @@
 <template>
-  <NavBar2 />
   <!--Banner-->
   <section
-    class="relative h-96 bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat">
+    class="relative h-96 bg-[url(https://images.unsplash.com/photo-1604014237800-1c9102c219da?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80)] bg-cover bg-center bg-no-repeat ">
     <div class="absolute inset-0 bg-white/75 sm:bg-transparent sm:bg-gradient-to-r sm:from-white/95 sm:to-white/25"></div>
 
     <div class="relative h-96 mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:items-center lg:px-8">
@@ -31,16 +30,16 @@
         </div>
       </div>
     </div>
-  </section>
+  </section >
   <!--Products-->
-  <section>
+  <section class="bg-gray-100">
     <div class="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
       <header class="text-center">
-        <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">Product Collection</h2>
+        <h2 class="text-xl font-bold text-gray-900 sm:text-3xl">Featured Products</h2>
       </header>
 
       <ul class="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4">
-        <li v-for="product in Products" :key="product._id">
+        <li v-for="product in Products" :key="product._id" class="shadow-md border rounded-lg">
           <a href="#" class="group relative block overflow-hidden">
             <button
               class="absolute right-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
@@ -57,7 +56,7 @@
               class="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72" />
 
             <div class="relative border border-gray-100 bg-white p-6">
-              <span class="whitespace-nowrap bg-emerald-400 px-3 py-1.5 text-xs font-medium text-gray-700">
+              <span class="whitespace-nowrap bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white">
                 New
               </span>
 
@@ -67,7 +66,7 @@
 
               <form class="mt-4">
                 <button
-                  class="block w-full rounded bg-emerald-400 p-4 text-sm font-medium transition hover:scale-105 text-gray-700"
+                  class="block w-full rounded bg-emerald-600 p-4 text-sm font-medium transition hover:scale-105 text-white"
                   @click.prevent="addItemToCart(product._id)">
                   Add to Cart
                 </button>
@@ -78,10 +77,11 @@
       </ul>
     </div>
   </section>
-  <!--Reviews-->
-  <footer>
+    <footer>
     <Footer />
   </footer>
+  <!--Reviews-->
+ 
 </template>
 
 <script>
@@ -99,6 +99,9 @@ export default {
       errorMessage: "",
     };
   },
+  components:{
+    Footer
+  },
   async created() {
     try {
       const response = await axios.get("http://localhost:3000/api/products");
@@ -110,7 +113,7 @@ export default {
     
   },
   computed() {
-    // Get the current user when the component is mounted
+
   },
   methods: {
     addItemToCart(productId) {

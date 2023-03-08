@@ -14,6 +14,8 @@ const router = createRouter ({
     { path: "/about", component: () => import("../views/Home/About.vue") },   
     { path: "/orders", component: () => import("../views/Home/Order.vue") },   
     { path: "/order-details/:id", component: () => import("../views/Home/OrderDetails.vue") },   
+    { path: "/category/:id", component: () => import("../views/Home/Category.vue") },   
+    { path: "/product/:id", component: () => import("../views/Home/Product.vue") },   
     
     //DASHBOARD
     { path: "/dashboard", component: () => import("../views/dashboard/Dashboard.vue") },   
@@ -27,8 +29,7 @@ const router = createRouter ({
     { path: "/dashboard/product/create-product", component: () => import("../views/dashboard/products/CreateProduct.vue")},   
     { path: "/dashboard/product/edit-product/:id", component: () => import("../views/dashboard/products/EditProduct.vue") },   
     //ORDER CRUD
-    { path: "/dashboard/order/list-orders", component: () => import("../views/dashboard/orders/ListOrder.vue")},   
-    { path: "/dashboard/order/create-order", component: () => import("../views/dashboard/orders/CreateOrder.vue")},   
+    { path: "/dashboard/order/list-orders", component: () => import("../views/dashboard/orders/ListOrder.vue")},    
     { path: "/dashboard/order/edit-order/:id", component: () => import("../views/dashboard/orders/EditOrder.vue") },   
   ],
  });

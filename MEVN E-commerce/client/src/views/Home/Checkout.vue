@@ -22,7 +22,7 @@
           <div>
             <div class="flow-root">
               <ul class="-my-4 divide-y divide-gray-100">
-                <li class="flex items-center gap-4  border rounded-lg shadow-md w-full my-6 px-4" v-for="item in cartItems" :key="item._id">
+                <li class="flex items-center gap-4  border rounded-lg shadow-md w-full my-6 px-4 pt-2" v-for="item in cartItems" :key="item._id">
                   <img :src=getProductImage(item.productId) alt="" class="h-16 w-16 rounded object-cover" />
 
 
@@ -61,7 +61,7 @@
                 First Name
               </label>
 
-              <input type="text" id="name" class="mt-1 h-8 w-full rounded-md border-gray-200 shadow-md sm:text-sm"
+              <input type="text" id="name" placeholder="Name" class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm"
                 v-model="shippingDetails.name" required/>
             </div>
 
@@ -70,7 +70,7 @@
                 Last Name
               </label>
 
-              <input type="text" id="surname" class="mt-1 h-8 w-full rounded-md border-gray-200 shadow-md sm:text-sm" 
+              <input type="text" id="surname" placeholder="Surname" class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm" 
               v-model="shippingDetails.surname" required/>
             </div>
 
@@ -79,7 +79,7 @@
                 Email
               </label>
 
-              <input type="email" id="email" class="mt-1 h-8 w-full rounded-md border-gray-200 shadow-md sm:text-sm" 
+              <input type="email" id="email" placeholder="Email" class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm" 
               v-model="shippingDetails.email" required/>
             </div>
 
@@ -88,7 +88,7 @@
                 Phone
               </label>
 
-              <input type="tel" id="phone" class="mt-1 h-8 w-full rounded-md border-gray-200 shadow-md sm:text-sm" 
+              <input type="tel" id="phone" placeholder="Phone" class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm" 
               v-model="shippingDetails.phone" required/>
             </div>
 
@@ -103,7 +103,7 @@
                 <label class="sr-only" for="country"> Country </label>
 
                 <input type="text" id="country" placeholder="Country"
-                  class="mt-1 h-8 w-full rounded-md border-black-400 shadow-md sm:text-sm" 
+                  class="mt-1 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" 
                   v-model="shippingDetails.country" required/>
               </div>
 
@@ -111,28 +111,28 @@
                 <label class="sr-only" for="city"> City </label>
 
                 <input type="text" id="city" placeholder="City"
-                  class="mt-3 h-8 w-full rounded-md border-gray-200 shadow-md sm:text-sm" 
+                  class="mt-3 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" 
                   v-model="shippingDetails.city" required/>
               </div>
               <div>
                 <label class="sr-only" for="address"> Address </label>
 
                 <input type="text" id="address" placeholder="Address"
-                  class="mt-3 h-8 w-full rounded-md border-gray-200 shadow-md sm:text-sm" 
+                  class="mt-3 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" 
                   v-model="shippingDetails.address" required/>
               </div>
               <div>
                 <label class="sr-only" for="zipCode"> ZipCode </label>
 
                 <input type="text" id="zipCode" placeholder="ZipCode"
-                  class="mt-3 h-8 w-full rounded-md border-gray-200 shadow-md sm:text-sm" 
+                  class="mt-3 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" 
                   v-model="shippingDetails.zipCode" required/>
               </div>
 
             </fieldset>
 
             <div class="col-span-6">
-              <button class="block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg">
+              <button class="block w-full rounded-md bg-emerald-700 hover:bg-emerald-800 p-2.5 text-sm text-white transition hover:shadow-lg">
                 Pay Now
               </button>
             </div>
@@ -194,8 +194,9 @@ export default {
 
   methods: {
     handleSubmitForm() {
+      const userId = localStorage.getItem('userId');
       // Make the POST request
-      axios.post('http://localhost:3000/api/orders', this.shippingDetails)
+      axios.post(`http://localhost:3000/api/orders/${userId}`, this.shippingDetails)
         .then(response => {
           this.$router.push("/");
           this.shippingDetails = {
@@ -247,3 +248,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+* {
+  text-decoration: none;
+}
+</style>

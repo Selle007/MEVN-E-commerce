@@ -79,7 +79,7 @@
           <div class="mt-4">
             <button
               type="submit"
-              class="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
+              class="inline-block w-full rounded-lg bg-emerald-600 px-5 py-3 font-medium text-white sm:w-auto hover:bg-emerald-700" 
             >
               Send Enquiry
             </button>

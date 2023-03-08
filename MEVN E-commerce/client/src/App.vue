@@ -1,18 +1,16 @@
 <template>
   <body class="bg-gray-50">
-    <div v-if="!isDashboard" >
+    <div v-if="!isDashboard">
       <NavBar />
-      
 
+      <Footer />
     </div>
     <div v-if="isDashboard" class="flex flex-row">
       <SideBar />
 
     </div>
-    
+
   </body>
-
-
 </template>
 
 <script>
@@ -24,6 +22,7 @@ export default {
   components: {
     NavBar,
     SideBar,
+    Footer
   },
   computed: {
     // Get the current route and determine the appropriate navigation component to show

@@ -43,7 +43,7 @@
 
                 <td class="px-4 py-3 flex flex-row ">
                   <span class="inline-flex divide-x overflow-hidden rounded-md border bg-white shadow-sm">
-                    <button class="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative" title="Edit Product"
+                    <button class="inline-block p-3 text-gray-700 hover:text-emerald-600 hover:bg-gray-50 focus:relative" title="Edit Product"
                       @click="editOrder(order._id)">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="h-4 w-4">
@@ -59,7 +59,7 @@
           </table>
           <div v-else>
             <div
-              class="px-3 py-1 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse">
+            class="px-3 py-1 text-xs font-medium leading-none text-center text-emerald-800 bg-emerald-200 rounded-full animate-pulse">
               Loading...
             </div>
           </div>
@@ -111,3 +111,9 @@ export default {
   },
 };
 </script>
+<style scoped>
+* {
+  text-decoration: none;
+}
+</style>
+

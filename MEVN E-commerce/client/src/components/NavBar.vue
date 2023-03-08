@@ -10,7 +10,7 @@
         <nav aria-label="Site Nav" class="hidden md:block">
           <ul class="flex items-center gap-6 text-sm mt-3">
             <li>
-              <a class="text-gray-500 transition hover:text-gray-500/75" href="/">
+              <a class="text-gray-900 transition hover:text-emerald-600" href="/">
                 Home
               </a>
             </li>
@@ -18,7 +18,7 @@
             <li>
               <Menu as="div" class="relative text-left">
                 <div>
-                  <MenuButton class="inline-flex justify-center text-gray-500 transition hover:text-gray-500/75">
+                  <MenuButton class="inline-flex justify-center text-gray-900 transition hover:text-emerald-600">
                     Products
                   </MenuButton>
                 </div>
@@ -33,7 +33,7 @@
                       <MenuItem v-slot="{ active }" v-for="category in categories" :key="category._id">
                       <a :href="`/category/${category._id}`" :class="[
                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                        'block px-4 py-2 text-sm',
+                        'block px-4 py-2 text-sm hover:text-emerald-600',
                       ]">{{ category.name }}</a>
                       </MenuItem>
                     </div>
@@ -43,13 +43,13 @@
             </li>
 
             <li>
-              <a class="text-gray-500 transition hover:text-gray-500/75" href="/about">
+              <a class="text-gray-900 transition hover:text-emerald-600" href="/about">
                 About
               </a>
             </li>
 
             <li>
-              <a class="text-gray-500 transition hover:text-gray-500/75" href="/contact">
+              <a class="text-gray-900 transition hover:text-emerald-600" href="/contact">
                 Contact
               </a>
             </li>
@@ -67,10 +67,10 @@
               </svg>
             </div>
             <input type="search" id="default-search"
-              class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 h-6 w-96"
+              class="block w-1/2 p-4 pl-10 text-sm text-gray-900 border border-emerald-300 rounded-lg bg-gray-50 focus:ring-emerald-500 focus:border-emerald-500 h-6 w-96"
               placeholder="   Search..." required />
             <button type="submit"
-              class="text-white absolute right-2.5 bottom-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
+              class="text-white absolute right-2.5 bottom-2 bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">
               Search
             </button>
           </div>
@@ -123,10 +123,12 @@ export default {
     MenuItems,
     LoggedIn,
   },
+  
   setup() {
     const isLoggedIn = ref(false);
     const categories = ref([]);
 
+    
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
       if (user) {

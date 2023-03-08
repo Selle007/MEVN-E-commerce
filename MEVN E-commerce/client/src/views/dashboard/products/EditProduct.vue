@@ -121,7 +121,7 @@
                 type="checkbox"
                 id="MarketingAccept"
                 name="marketing_accept"
-                class="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm"
+                class="h-5 w-5 rounded-md border-gray-200 bg-white shadow-sm "
                 v-model="product.isFeatured"
               />
             </label>
@@ -161,7 +161,7 @@
           </div>
         </div>
         <button
-          class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-primary-800"
+          class="inline-flex items-center px-5 py-2.5 mt-4 sm:mt-6 text-sm font-medium text-center text-white bg-emerald-600 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-emerald-700"
         >
           Edit
         </button>
@@ -209,3 +209,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+* {
+  text-decoration: none;
+}
+</style>

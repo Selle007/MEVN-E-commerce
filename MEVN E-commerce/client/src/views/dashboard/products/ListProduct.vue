@@ -13,7 +13,7 @@
             <a href="/dashboard/product/create-product"
               ><button
                 type="button"
-                class="inline-flex items-center px-5 py-2.5  text-sm font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-primary-800"
+                class="inline-flex items-center px-5 py-2.5  text-sm font-medium text-center text-white bg-emerald-600 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-emerald-700"
               >
                 Add product
               </button></a
@@ -63,7 +63,7 @@
                     class="inline-flex divide-x overflow-hidden rounded-md border bg-white shadow-sm"
                   >
                     <button
-                      class="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
+                      class="inline-block p-3 text-gray-700 hover:bg-gray-50 hover:text-emerald-600 focus:relative"
                       title="Edit Product"
                       @click="editProduct(product._id)"
                     >
@@ -84,7 +84,7 @@
                     </button>
 
                     <button
-                      class="inline-block p-3 text-gray-700 hover:bg-gray-50 focus:relative"
+                      class="inline-block p-3 text-gray-700 hover:bg-gray-50  hover:text-red-600 focus:relative"
                       title="Delete Product"
                       @click.prevent="deleteProduct(product._id)"
                     >
@@ -110,8 +110,8 @@
           </table>
           <div v-else>
             <div
-              class="px-3 py-1 text-xs font-medium leading-none text-center text-blue-800 bg-blue-200 rounded-full animate-pulse"
-            >
+            class="px-3 py-1 text-xs font-medium leading-none text-center text-emerald-800 bg-emerald-200 rounded-full animate-pulse">
+
               Loading...
             </div>
           </div>
@@ -182,3 +182,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+* {
+  text-decoration: none;
+}
+</style>
