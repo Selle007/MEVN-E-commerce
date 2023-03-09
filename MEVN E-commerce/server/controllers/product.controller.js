@@ -1,18 +1,43 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
+const multer = require('multer');
 
-//model
 let ProductModel = require('../models/product.model')
 
-router.route('/create-product').post((req, res, next) => {
-  ProductModel.create(req.body, (error, data) => {
-    if (error) {
-      return next(error)
-    } else {
-      res.json(data)
-    }
-  })
+// Set up multer for file upload
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'images')
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
 })
+const upload = multer({ storage: storage });
+
+// Create product
+router.post('/create-product', upload.single('productImage'), async (req, res) => {
+  const { name, description, price, stock, isFeatured, category } = req.body;
+  const imagePath = req.file.path;
+
+  try {
+    const product = new ProductModel({
+      name,
+      description,
+      price,
+      stock,
+      isFeatured,
+      category,
+      image: imagePath
+    });
+    await product.save();
+    res.json({ message: 'Product created successfully' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
 
 router.route('/products').get((req, res, next) => {
   ProductModel.find((error, data) => {

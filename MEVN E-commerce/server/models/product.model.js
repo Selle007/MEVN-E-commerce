@@ -1,5 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
+const multer = require('multer');
+const path = require('path');
 
 let productSchema = new Schema(
   {
@@ -31,5 +33,7 @@ let productSchema = new Schema(
     collection: 'products',
   },
 )
+
+
 
 module.exports = mongoose.model('Products', productSchema)

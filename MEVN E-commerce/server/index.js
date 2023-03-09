@@ -3,6 +3,7 @@ const express = require('express')
 const cors = require('cors')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const path = require('path')
 
 
 
@@ -30,6 +31,8 @@ app.use(
     extended: false,
   }),
 )
+// Serve static files from the uploads directory
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 app.use(cors())
 
@@ -60,6 +63,8 @@ app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
 
 
 
