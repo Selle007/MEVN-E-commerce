@@ -40,7 +40,7 @@
 
       <ul class="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4">
         <li v-for="product in Products" :key="product._id" class="shadow-md border rounded-lg">
-          <a href="#" class="group relative block overflow-hidden">
+          <a :href="`/product/${product._id}`" class="group relative block overflow-hidden">
             <button
               class="absolute right-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
               <span class="sr-only">Wishlist</span>
@@ -52,7 +52,7 @@
               </svg>
             </button>
 
-            <img :src="product.image" alt=""
+            <img :src="getImageUrl(product.image)" alt=""
               class="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72" />
 
             <div class="relative border border-gray-100 bg-white p-6">
@@ -77,9 +77,7 @@
       </ul>
     </div>
   </section>
-    <footer>
-    <Footer />
-  </footer>
+
   <!--Reviews-->
  
 </template>
@@ -116,6 +114,9 @@ export default {
 
   },
   methods: {
+    getImageUrl(filePath) {
+            return `http://localhost:3000/${filePath}`;
+        },
     addItemToCart(productId) {
       const userId = localStorage.getItem('userId');
       

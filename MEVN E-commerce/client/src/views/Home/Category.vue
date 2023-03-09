@@ -32,7 +32,7 @@
                                 </svg>
                             </button>
 
-                            <img :src="product.image" alt=""
+                            <img :src="getImageUrl(product.image)" alt=""
                                 class="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72" />
 
                             <div class="relative border border-gray-100 bg-white p-6">
@@ -104,6 +104,9 @@ export default {
         }
     },
     methods: {
+        getImageUrl(filePath) {
+            return `http://localhost:3000/${filePath}`;
+        },
         addItemToCart(productId) {
             const userId = localStorage.getItem('userId');
 
