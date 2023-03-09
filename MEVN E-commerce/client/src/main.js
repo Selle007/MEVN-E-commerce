@@ -17,6 +17,7 @@ import { initializeApp } from "firebase/app";
 import 'firebase/firestore';
 
 
+
 const firebaseConfig = {
   apiKey: "AIzaSyAFX9hZskRHMhhMaf2GNiOYvP9Rvjo2MJM",
   authDomain: "ecommercevue-d5779.firebaseapp.com",
@@ -30,7 +31,8 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
-const app = createApp(App);
 
-app.use(router);
-app.mount("#app");
+createApp(App)
+  .use(router)
+  .provide('firebase', app)
+  .mount('#app');

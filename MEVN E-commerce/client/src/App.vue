@@ -1,5 +1,5 @@
 <template>
-  <body class="bg-gray-50">
+  <body class="bg-gray-50" >
     <div v-if="!isDashboard">
       <NavBar />
 
@@ -45,6 +45,14 @@ export default {
       return false;
     },
   },
+  mounted() {
+    const userRole = localStorage.getItem("userRole");
+    if (userRole !== "User") {
+      window.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+      });
+    }
+  }
 };
 </script>
 

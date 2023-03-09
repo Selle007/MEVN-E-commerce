@@ -99,7 +99,7 @@ const register  = () => {
     createUserWithEmailAndPassword(getAuth(), email.value, password.value)
     .then((auth) => {
         console.log("Successfully registered!");
-        console.log(auth.currentUser);
+        localStorage.setItem("userId", auth.user.uid);
         router.push('/feed')
     })
     .catch((error) => {

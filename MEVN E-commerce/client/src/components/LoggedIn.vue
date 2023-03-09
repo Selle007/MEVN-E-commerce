@@ -19,8 +19,8 @@
       leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
       <MenuItems
         class="absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-        <div class="py-1">
-          <MenuItem v-slot="{ active }">
+        <div class="py-1" v-if="userRole==='Admin'">
+          <MenuItem v-slot="{ active }" >
           <a href="/dashboard" :class="[
             active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
             'block px-4 py-2 text-sm hover:text-emerald-600',
@@ -66,8 +66,11 @@ import { getAuth, onAuthStateChanged, signOut } from "@firebase/auth";
 import router from "../router";
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/vue";
 import { ChevronDownIcon } from "@heroicons/vue/20/solid";
+import axios from "axios";
 
 const isVisible = ref(false);
+
+const userRole = localStorage.getItem("userRole");
 
 const toggleVisibility = () => {
   isVisible.value = !isVisible.value;
@@ -84,6 +87,16 @@ onMounted(() => {
     } else {
       isLoggedIn.value = false;
     }
+  });
+
+const userId = localStorage.getItem("userId");
+// after user logs in and you have the userId
+axios.get(`http://localhost:3000/api/user-role/${userId}`)
+  .then((response) => {
+    localStorage.setItem('userRole', response.data.role);
+  })
+  .catch((error) => {
+    console.error(error);
   });
 });
 
