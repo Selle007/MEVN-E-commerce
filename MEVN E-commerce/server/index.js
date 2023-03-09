@@ -5,8 +5,6 @@ const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const path = require('path')
 
-
-
 //Connect to the database
 const db = require("./models");
 db.mongoose
@@ -40,12 +38,14 @@ const categoryAPI = require('../server/controllers/category.controller')
 const productAPI = require('../server/controllers/product.controller')
 const cartAPI = require('../server/controllers/cart.controller')
 const orderAPI = require('../server/controllers/order.controller')
+const userRoleAPI = require('../server/controllers/userRole.controller')
 
 // API
 app.use('/api', categoryAPI)
 app.use('/api', cartAPI)
 app.use('/api', productAPI)
 app.use('/api', orderAPI)
+app.use('/api', userRoleAPI)
 
 
 
