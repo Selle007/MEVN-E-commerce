@@ -39,6 +39,7 @@ const productAPI = require('../server/controllers/product.controller')
 const cartAPI = require('../server/controllers/cart.controller')
 const orderAPI = require('../server/controllers/order.controller')
 const userRoleAPI = require('../server/controllers/userRole.controller')
+const contactAPI = require('../server/controllers/contact.controller')
 
 // API
 app.use('/api', categoryAPI)
@@ -46,6 +47,7 @@ app.use('/api', cartAPI)
 app.use('/api', productAPI)
 app.use('/api', orderAPI)
 app.use('/api', userRoleAPI)
+app.use('/api', contactAPI)
 
 
 
