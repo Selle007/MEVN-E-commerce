@@ -24,7 +24,7 @@ router.route('/contacts').get((req, res, next) => {
   })
 })
 
-router.route('/edit-contact/:id').get((req, res, next) => {
+router.route('/contacts/:id').get((req, res, next) => {
   ContactModel.findById(req.params.id, (error, data) => {
     if (error) {
       return next(error)

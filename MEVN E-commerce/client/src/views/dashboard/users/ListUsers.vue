@@ -6,20 +6,8 @@
         <div
           class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4"
         >
-        <h2 class="mb-2 text-xl leading-none text-black md:text-2xl ">All Categories</h2>
-          <div
-            class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-start md:space-x-3 flex-shrink-0"
-          >
-            <a href="/dashboard/category/create-category"
-              ><button
-                type="button"
-                class="inline-flex items-center px-5 py-2.5  text-sm font-medium text-center text-white bg-emerald-600 rounded-lg focus:ring-4 focus:ring-primary-200 hover:bg-emerald-700"
+        <h2 class="mb-2 text-xl leading-none text-black md:text-2xl ">All Users roles</h2>
 
-              >
-                Add category
-              </button></a
-            >
-          </div>
         </div>
         <div class="overflow-x-auto">
           <table

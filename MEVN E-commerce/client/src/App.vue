@@ -47,7 +47,7 @@ export default {
   },
   mounted() {
     const userRole = localStorage.getItem("userRole");
-    if (userRole !== "User") {
+    if (userRole !== "Admin") {
       window.addEventListener("contextmenu", (event) => {
         event.preventDefault();
       });

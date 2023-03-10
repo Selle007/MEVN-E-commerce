@@ -30,7 +30,7 @@
       </div>
 
       <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-        <form action="" class="space-y-4">
+        <form action="#" @submit.prevent="handleSubmitForm" class="space-y-4">
           <div>
             <label class="sr-only" for="name">Name</label>
             <input
@@ -38,6 +38,8 @@
               placeholder="Name"
               type="text"
               id="name"
+              v-model="contact.name"
+              required
             />
           </div>
 
@@ -49,6 +51,9 @@
                 placeholder="Email address"
                 type="email"
                 id="email"
+              v-model="contact.email"
+              required
+                
               />
             </div>
 
@@ -59,6 +64,9 @@
                 placeholder="Phone Number"
                 type="tel"
                 id="phone"
+              v-model="contact.phone"
+              required
+                
               />
             </div>
           </div>
@@ -73,6 +81,9 @@
               placeholder="Message"
               rows="8"
               id="message"
+              v-model="contact.message"
+              required
+              
             ></textarea>
           </div>
 
@@ -93,5 +104,42 @@
 </template>
 
 <script>
+import axios from "axios";
 
+export default {
+  data() {
+    return {
+      contact: {
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+      },
+    };
+  },
+  methods: {
+    handleSubmitForm() {
+      let apiURL = "http://localhost:3000/api/create-contact";
+
+      axios
+        .post(apiURL, this.contact)
+        .then(() => {
+          this.contact = {
+            name: "",
+            email: "",
+            phone: "",
+            message: "",
+          };
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+};
 </script>
+<style scoped>
+*{
+  text-decoration: none;
+}
+</style>

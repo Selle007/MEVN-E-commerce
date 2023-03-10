@@ -31,9 +31,12 @@ const router = createRouter ({
     //ORDER CRUD
     { path: "/dashboard/order/list-orders", component: () => import("../views/dashboard/orders/ListOrder.vue")},    
     { path: "/dashboard/order/edit-order/:id", component: () => import("../views/dashboard/orders/EditOrder.vue") },   
-    //PRODUCT CRUD
+    //USER CRUD
     { path: "/dashboard/users/list-users", component: () => import("../views/dashboard/users/ListUsers.vue")},   
     { path: "/dashboard/users/edit-user/:id", component: () => import("../views/dashboard/users/EditUsers.vue") },  
+    //MESSAGE/CONTACT CRUD
+    { path: "/dashboard/messages/list-messages", component: () => import("../views/dashboard/messages/ListMessage.vue")},   
+    { path: "/dashboard/messages/message-details/:id", component: () => import("../views/dashboard/messages/MessageDetails.vue") },  
   ],
  });
  
