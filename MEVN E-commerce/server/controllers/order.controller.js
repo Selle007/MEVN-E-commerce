@@ -4,6 +4,7 @@ const router = express.Router();
 //model
 const Order = require('../models/order.model');
 const Cart = require('../models/cart.model');
+const Product = require('../models/product.model');
 
 // POST /api/orders
 // Create a new order
@@ -43,6 +44,13 @@ router.post('/orders/:userId', async (req, res) => {
     });
   
     await order.save();
+    
+     // Update stock of each product in the order
+  for (const item of items) {
+    const product = await Product.findById(item.productId);
+    product.stock -= item.quantity;
+    await product.save();
+  }
   
     await Cart.findOneAndUpdate({ userId }, { $set: { items: [] } });
   
