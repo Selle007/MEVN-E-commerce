@@ -13,7 +13,7 @@
 
           <div>
             <p class="text-4xl font-medium tracking-tight text-gray-900">
-             Your total is: {{ cartTotal }}&euro;
+              Your total is: {{ cartTotal }}&euro;
             </p>
 
 
@@ -22,8 +22,9 @@
           <div>
             <div class="flow-root">
               <ul class="-my-4 divide-y divide-gray-100">
-                <li class="flex items-center gap-4  border rounded-lg shadow-md w-full my-6 px-4 pt-2" v-for="item in cartItems" :key="item._id">
-                  <img :src=getProductImage(item.productId) alt="" class="h-16 w-16 rounded object-cover" />
+                <li class="flex items-center gap-4  border rounded-lg shadow-md w-full my-6 px-4 pt-2"
+                  v-for="item in cartItems" :key="item._id">
+                  <img :src=getImageUrl(getProductImage(item.productId)) alt="" class="h-16 w-16 rounded object-cover" />
 
 
                   <div>
@@ -61,8 +62,9 @@
                 First Name
               </label>
 
-              <input type="text" id="name" placeholder="Name" class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm"
-                v-model="shippingDetails.name" required/>
+              <input type="text" id="name" placeholder="Name"
+                class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm" v-model="shippingDetails.name"
+                required />
             </div>
 
             <div class="col-span-3">
@@ -70,8 +72,9 @@
                 Last Name
               </label>
 
-              <input type="text" id="surname" placeholder="Surname" class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm" 
-              v-model="shippingDetails.surname" required/>
+              <input type="text" id="surname" placeholder="Surname"
+                class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm" v-model="shippingDetails.surname"
+                required />
             </div>
 
             <div class="col-span-6">
@@ -79,8 +82,9 @@
                 Email
               </label>
 
-              <input type="email" id="email" placeholder="Email" class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm" 
-              v-model="shippingDetails.email" required/>
+              <input type="email" id="email" placeholder="Email"
+                class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm" v-model="shippingDetails.email"
+                required />
             </div>
 
             <div class="col-span-6">
@@ -88,8 +92,9 @@
                 Phone
               </label>
 
-              <input type="tel" id="phone" placeholder="Phone" class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm" 
-              v-model="shippingDetails.phone" required/>
+              <input type="tel" id="phone" placeholder="Phone"
+                class="mt-1 h-12 px-2 w-full rounded-md border shadow-md sm:text-sm" v-model="shippingDetails.phone"
+                required />
             </div>
 
 
@@ -103,36 +108,37 @@
                 <label class="sr-only" for="country"> Country </label>
 
                 <input type="text" id="country" placeholder="Country"
-                  class="mt-1 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" 
-                  v-model="shippingDetails.country" required/>
+                  class="mt-1 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" v-model="shippingDetails.country"
+                  required />
               </div>
 
               <div>
                 <label class="sr-only" for="city"> City </label>
 
                 <input type="text" id="city" placeholder="City"
-                  class="mt-3 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" 
-                  v-model="shippingDetails.city" required/>
+                  class="mt-3 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" v-model="shippingDetails.city"
+                  required />
               </div>
               <div>
                 <label class="sr-only" for="address"> Address </label>
 
                 <input type="text" id="address" placeholder="Address"
-                  class="mt-3 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" 
-                  v-model="shippingDetails.address" required/>
+                  class="mt-3 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" v-model="shippingDetails.address"
+                  required />
               </div>
               <div>
                 <label class="sr-only" for="zipCode"> ZipCode </label>
 
                 <input type="text" id="zipCode" placeholder="ZipCode"
-                  class="mt-3 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" 
-                  v-model="shippingDetails.zipCode" required/>
+                  class="mt-3 h-12 px-4 w-full rounded-md border shadow-md sm:text-sm" v-model="shippingDetails.zipCode"
+                  required />
               </div>
 
             </fieldset>
 
             <div class="col-span-6">
-              <button class="block w-full rounded-md bg-emerald-700 hover:bg-emerald-800 p-2.5 text-sm text-white transition hover:shadow-lg">
+              <button
+                class="block w-full rounded-md bg-emerald-700 hover:bg-emerald-800 p-2.5 text-sm text-white transition hover:shadow-lg">
                 Pay Now
               </button>
             </div>
@@ -216,14 +222,19 @@ export default {
           console.error('Error creating order:', error.response.data.message);
         });
     },
+    getImageUrl(filePath) {
+      return `${filePath}`;
+    },
+    getProductImage(productId) {
+      const product = this.products.find((p) => p._id === productId);
+      return product ? `http://localhost:3000/${product.image}` : "";
+    },
     calculatePrice(item) {
       const product = this.products.find((p) => p._id === item.productId);
       return product.price * item.quantity;
     },
-    getProductImage(productId) {
-      const product = this.products.find((p) => p._id === productId);
-      return product ? product.image : "";
-    },
+    
+
     getProductName(productId) {
       const product = this.products.find((p) => p._id === productId);
       return product ? product.name : "";
@@ -248,8 +259,6 @@ export default {
   }
 };
 </script>
-<style scoped>
-* {
+<style scoped>* {
   text-decoration: none;
-}
-</style>
+}</style>

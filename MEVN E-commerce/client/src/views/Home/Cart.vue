@@ -10,7 +10,7 @@
           <ul class="space-y-4">
             <li class="flex items-center gap-4 border rounded-lg px-4 shadow-sm" v-for="item in cartItems"
               :key="item._id">
-              <img :src=getProductImage(item.productId) alt="" class="h-20 w-20 rounded object-cover" />
+              <img :src=getImageUrl(getProductImage(item.productId)) alt="" class="h-20 w-20 rounded object-cover" />
               <div>
                 <h3 class="text-,d text-gray-900">{{ getProductName(item.productId) }}</h3>
                 <dl class="mt-0.5 space-y-px text-[10px] text-gray-600">
@@ -103,15 +103,19 @@ export default {
   },
 
   methods: {
+    getImageUrl(filePath) {
+      return `${filePath}`;
+    },
+    getProductImage(productId) {
+      const product = this.products.find((p) => p._id === productId);
+      return product ? `http://localhost:3000/${product.image}` : "";
+    },
 
     calculatePrice(item, productId) {
       const product = this.products.find((p) => p._id === productId);
       return product ? product.price * item.quantity : "";
     },
-    getProductImage(productId) {
-      const product = this.products.find((p) => p._id === productId);
-      return product ? product.image : "";
-    },
+ 
     getProductName(productId) {
       const product = this.products.find((p) => p._id === productId);
       return product ? product.name : "";

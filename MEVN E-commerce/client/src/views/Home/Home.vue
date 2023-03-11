@@ -17,17 +17,6 @@
           experience the ultimate satisfaction.
         </p>
 
-        <div class="mt-8 flex flex-wrap gap-4 text-center">
-          <a href="#"
-            class="block w-full rounded bg-emerald-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-emerald-700 focus:outline-none focus:ring active:bg-emerald-500 sm:w-auto">
-            View Product
-          </a>
-
-          <a href="#"
-            class="block w-full rounded bg-white px-12 py-3 text-sm font-medium text-emerald-600 shadow hover:text-emerald-700 focus:outline-none focus:ring active:text-emerald-500 sm:w-auto">
-            Add To Cart
-          </a>
-        </div>
       </div>
     </div>
   </section >
