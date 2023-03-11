@@ -8,8 +8,9 @@
         <!-- Cart items -->
         <div>
           <ul class="space-y-4">
-            <li class="flex items-center gap-4 border rounded-lg px-4 shadow-sm" v-for="item in cartItems"
+            <li  v-for="item in cartItems"
               :key="item._id">
+              <a :href="`/product/${item.productId}`" class="flex items-center gap-4 border rounded-lg px-4 shadow-sm">
               <img :src=getImageUrl(getProductImage(item.productId)) alt="" class="h-20 w-20 rounded object-cover" />
               <div>
                 <h3 class="text-,d text-gray-900">{{ getProductName(item.productId) }}</h3>
@@ -39,6 +40,7 @@
                   </svg>
                 </button>
               </div>
+            </a>
             </li>
           </ul>
           <div class="mt-8 flex justify-end border-t border-gray-100 pt-8">

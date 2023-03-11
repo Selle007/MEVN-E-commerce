@@ -13,7 +13,6 @@
             <div>
                 <h1 class="text-2xl font-bold lg:text-3xl">{{ product.name }}</h1>
                 <p class="mt-1 text-sm text-gray-500">SKU: {{ product._id }}</p>
-                <p class="mt-1 text-sm text-gray-500">SKU: {{ product.image }}</p>
             </div>
             <div class="grid gap-8 lg:grid-cols-4 lg:items-start">
                 <div class="lg:col-span-3">
@@ -23,18 +22,22 @@
 
                         <ul class="mt-1 flex gap-4 flex-col">
                             <li>
-                                <img alt="Tee" :src="product.image" class="h-16 w-16 rounded-md object-cover" />
+                                <img alt="Tee" :src="getImageUrl(product.image)"
+                                    class="h-16 w-16 rounded-md object-cover" />
                             </li>
 
                             <li>
-                                <img alt="Tee" :src="product.image" class="h-16 w-16 rounded-md object-cover" />
+                                <img alt="Tee" :src="getImageUrl(product.image)"
+                                    class="h-16 w-16 rounded-md object-cover" />
                             </li>
 
                             <li>
-                                <img alt="Tee" :src="product.image" class="h-16 w-16 rounded-md object-cover" />
+                                <img alt="Tee" :src="getImageUrl(product.image)"
+                                    class="h-16 w-16 rounded-md object-cover" />
                             </li>
                             <li>
-                                <img alt="Tee" :src="product.image" class="h-16 w-16 rounded-md object-cover" />
+                                <img alt="Tee" :src="getImageUrl(product.image)"
+                                    class="h-16 w-16 rounded-md object-cover" />
                             </li>
                         </ul>
 
@@ -57,13 +60,13 @@
                         </div>
 
                         <div>
-                            <p class="text-xl font-bold">$19.99</p>
+                            <p class="text-xl font-bold">{{ product.price }}.00&euro;</p>
                         </div>
 
-                        <button type="submit"
-                            class="w-full rounded bg-emerald-700 px-6 py-3 text-sm font-bold uppercase tracking-wide text-white">
-                            Add to cart
-                        </button>
+                        <button :disabled="product.stock < 1"
+                            class="block w-full rounded bg-emerald-600 p-4 text-sm font-medium transition hover:scale-105 text-white"
+                            @click.prevent="addItemToCart(product._id)">
+                            {{ product.stock < 1 ? "Out of Stock" : "Add to Cart" }} </button>
                     </div>
                 </div>
 
@@ -276,7 +279,7 @@ export default {
     },
     mounted() {
         axios.get("http://localhost:3000/api/categories").then((response) => {
-            console.log(response.data);
+
             this.Categories = response.data;
         });
     },

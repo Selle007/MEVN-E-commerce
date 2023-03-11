@@ -6,9 +6,9 @@
       <div class="bg-gray-50 py-12 md:py-24">
         <div class="mx-auto max-w-lg space-y-8 px-4 lg:px-8">
           <div class="flex items-center gap-4">
-            <span class="h-10 w-10 rounded-full bg-blue-700"></span>
+            <span class="h-10 w-10 rounded-full bg-emerald-700"></span>
 
-            <h2 class="font-medium text-gray-900">MEVN E-commerce</h2>
+            <img class="h-12" viewBox="0 0 28 24" fill="none" src="/vuejs.png" />
           </div>
 
           <div>
@@ -22,8 +22,9 @@
           <div>
             <div class="flow-root">
               <ul class="-my-4 divide-y divide-gray-100">
-                <li class="flex items-center gap-4  border rounded-lg shadow-md w-full my-6 px-4 pt-2"
+                <li 
                   v-for="item in cartItems" :key="item._id">
+                  <a :href="`/product/${item.productId}`" class="flex items-center gap-4  border rounded-lg shadow-md w-full my-6 px-4 pt-2">
                   <img :src=getImageUrl(getProductImage(item.productId)) alt="" class="h-16 w-16 rounded object-cover" />
 
 
@@ -47,6 +48,7 @@
                       </div>
                     </dl>
                   </div>
+                </a>
                 </li>
               </ul>
             </div>

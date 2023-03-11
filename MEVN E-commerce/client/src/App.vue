@@ -1,5 +1,5 @@
 <template>
-  <body class="bg-gray-50" >
+  <body class="bg-gray-50 flex flex-col min-h-screen" >
     <div v-if="!isDashboard">
       <NavBar />
 

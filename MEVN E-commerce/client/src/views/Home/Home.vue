@@ -1,7 +1,6 @@
 <template>
   <!--Banner-->
-  <section
-    class="relative h-96 bg-[url(http://localhost:3000/images/bannerImg.jpg)] bg-cover bg-center bg-no-repeat">
+  <section class="relative h-96 bg-[url(http://localhost:3000/images/bannerImg.jpg)] bg-cover bg-center bg-no-repeat">
     <div class="absolute inset-0 bg-white/75 sm:bg-transparent sm:bg-gradient-to-r sm:from-white/95 sm:to-white/25"></div>
 
     <div class="relative h-96 mx-auto max-w-screen-xl px-4 py-32 sm:px-6 lg:flex lg:items-center lg:px-8">
@@ -13,13 +12,13 @@
         </h1>
 
         <p class="mt-4 max-w-lg sm:text-xl sm:leading-relaxed">
-          Unleash the power of ahm and revolutionize your game. Get yours today and
+          Unleash the power of the universe and revolutionize your game. Get yours today and
           experience the ultimate satisfaction.
         </p>
 
       </div>
     </div>
-  </section >
+  </section>
   <!--Products-->
   <section class="bg-gray-100">
     <div class="max-w-screen-xl px-4 py-8 mx-auto sm:px-6 sm:py-12 lg:px-8">
@@ -44,22 +43,24 @@
             <img :src="getImageUrl(product.image)" alt=""
               class="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72" />
 
-            <div class="relative border border-gray-100 bg-white p-6">
+            <div class="relative border border-gray-100 bg-white p-6 flex flex-col">
               <span class="whitespace-nowrap bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white">
-                New
+                Featured
               </span>
 
               <h3 class="mt-4 text-lg font-medium text-gray-900">{{ product.name }}</h3>
 
-              <p class="mt-1.5 text-sm text-gray-700">${{ product.price }}</p>
+              <p class="mt-1.5 text-sm text-gray-700">{{ product.description }}</p>
+              <div class="card-content flex-1">
+                <h3 class="mt-4 text-lg font-medium text-gray-900">{{ product.price }}.00&euro;</h3>
 
-              <form class="mt-4">
-                <button
-                  class="block w-full rounded bg-emerald-600 p-4 text-sm font-medium transition hover:scale-105 text-white"
-                  @click.prevent="addItemToCart(product._id)">
-                  Add to Cart
-                </button>
-              </form>
+                <form class="mt-4">
+                  <button :disabled="product.stock < 1"
+                    class="block w-full rounded bg-emerald-600 p-4 text-sm font-medium transition hover:scale-105 text-white"
+                    @click.prevent="addItemToCart(product._id)">
+                    {{ product.stock < 1 ? "Out of Stock" : "Add to Cart" }} </button>
+                </form>
+              </div>
             </div>
           </a>
         </li>
@@ -68,7 +69,6 @@
   </section>
 
   <!--Reviews-->
- 
 </template>
 
 <script>
@@ -86,30 +86,30 @@ export default {
       errorMessage: "",
     };
   },
-  components:{
+  components: {
     Footer
   },
   async created() {
     try {
       const response = await axios.get("http://localhost:3000/api/products");
-      this.Products = response.data;
+      this.Products = response.data.filter(product => product.isFeatured);
     } catch (error) {
       console.log(error);
       this.errorMessage = "Sorry, there was an error loading the products.";
     };
-    
+
   },
   computed() {
 
   },
   methods: {
     getImageUrl(filePath) {
-            return `http://localhost:3000/${filePath}`;
-        },
+      return `http://localhost:3000/${filePath}`;
+    },
     addItemToCart(productId) {
       const userId = localStorage.getItem('userId');
-      
-      axios.post(`http://localhost:3000/api/cart/${userId}`, {productId: productId})
+
+      axios.post(`http://localhost:3000/api/cart/${userId}`, { productId: productId })
         .then(response => {
           console.log(response.data);
 
@@ -123,7 +123,7 @@ export default {
     // Remove item from cart
     removeItemFromCart(product) {
       const userId = localStorage.getItem('userId');
-      
+
       axios.delete(`http://localhost:3000/api/cart/${this.currentUser}/${product}`)
         .then(() => {
           console.log('Item deleted from cart successfully!');
@@ -153,5 +153,14 @@ export default {
 <style scoped>
 * {
   text-decoration: none;
+}
+
+.grid li {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-content {
+  flex: 1;
 }
 </style>

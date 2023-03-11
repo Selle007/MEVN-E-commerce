@@ -20,7 +20,7 @@
 
                 <ul class="grid gap-4 mt-8 sm:grid-cols-2 lg:grid-cols-4">
                     <li v-for="product in Products" :key="product._id" class="shadow-md border rounded-lg">
-                        <a href="#" class="group relative block overflow-hidden">
+                        <a :href="`/product/${product._id}`" class="group relative block overflow-hidden">
                             <button
                                 class="absolute right-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
                                 <span class="sr-only">Wishlist</span>
@@ -33,25 +33,25 @@
                             </button>
 
                             <img :src="getImageUrl(product.image)" alt=""
-                                class="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72" />
+                                class="h-64 aspect-ratio object-cover transition duration-500 group-hover:scale-105 sm:h-72" />
 
                             <div class="relative border border-gray-100 bg-white p-6">
-                                <span class="whitespace-nowrap bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white">
-                                    New
-                                </span>
 
                                 <h3 class="mt-4 text-lg font-medium text-gray-900">{{ product.name }}</h3>
 
-                                <p class="mt-1.5 text-sm text-gray-700">${{ product.price }}</p>
+                                <p class="mt-1.5 text-sm text-gray-700">{{ product.description }}</p>
+                                <div class="card-content flex-1">
+                                    <h3 class="mt-4 text-lg font-medium text-gray-900">{{ product.price }}.00&euro;</h3>
 
-                                <form class="mt-4">
-                                    <button
-                                        class="block w-full rounded bg-emerald-600 p-4 text-sm font-medium transition hover:scale-105 text-white"
-                                        @click.prevent="addItemToCart(product._id)">
-                                        Add to Cart
-                                    </button>
-                                </form>
+                                    <form class="mt-4">
+                                        <button :disabled="product.stock < 1"
+                                            class="block w-full rounded bg-emerald-600 p-4 text-sm font-medium transition hover:scale-105 text-white"
+                                            @click.prevent="addItemToCart(product._id)">
+                                            {{ product.stock < 1 ? "Out of Stock" : "Add to Cart" }} </button>
+                                    </form>
+                                </div>
                             </div>
+
                         </a>
                     </li>
                 </ul>
